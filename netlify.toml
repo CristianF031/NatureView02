@@ -1,7 +1,12 @@
 [build]
-  command = "echo 'Build exitoso'"
   publish = "public"
 
-[dev]
-  framework = "#static"  # Fuerza modo estático
-  targetPort = 8080      # Puerto alternativo
+[[redirects]]
+  from = "/servicios"
+  to = "/servicios/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/modelos3d"
+  to = "/modelos3d/index.html"
+  status = 200
