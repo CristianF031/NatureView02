@@ -5,19 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galería 3D - NatureView</title>
-    <link rel="stylesheet" href="../css/stylenavbar.css">
-    <link rel="stylesheet" href="../css/styleser.css">
+    <link rel="stylesheet" href="/css/stylenavbar.css">
+    <link rel="stylesheet" href="/css/styleser.css">
 
-    <!-- Import map para resolver módulos -->
-    <script type="importmap">
-  {
-    "imports": {
-      "three": "../node_modules/three/build/three.module.js",
-      "three/examples/jsm/controls/OrbitControls": "../node_modules/three/examples/jsm/controls/OrbitControls.js",
-      "three/examples/jsm/loaders/RGBELoader": "../node_modules/three/examples/jsm/loaders/RGBELoader.js"
-    }
-  }
-  </script>
+    <!-- Three.js Core -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Loaders para modelos 3D (GLTF, FBX, etc.) -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <!-- Controles de cámara (Opcional) -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
 
     <style>
         .grid-container {
@@ -76,10 +73,10 @@
         <div id="scene6" class="scene-container"></div>
     </div>
 
-    <script src="../js/navbar.js"></script>
+    <script src="/js/navbar.js"></script>
     <!-- Cargamos el script principal como módulo -->
-    <script type="module" src="../js/models.js"></script>
-    <script src="../js/footer.js"></script>
+    <script type="module" src="/js/models.js"></script>
+    <script src="/js/footer.js"></script>
 </body>
 
 </html>
