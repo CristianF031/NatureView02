@@ -3,19 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "netlify dev --staticServerPort 3000 --dir=public",
-    "start": "live-server public",
-    "build": "echo 'Build exitoso'",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "netlify dev"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "devDependencies": {
-    "live-server": "^1.2.2",
-    "netlify-cli": "^20.1.1",
-    "vite": "^6.3.3"
+    "vite": "^6.3.3",
+    "netlify-cli": "^20.1.1"
   },
   "dependencies": {
     "three": "^0.176.0"

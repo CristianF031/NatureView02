@@ -1,3 +1,6 @@
+import * as THREE from 'three';
+
+
 document.addEventListener('DOMContentLoaded', () => {
     // IDs de los contenedores
     const containerIds = ['scene1', 'scene2', 'scene3', 'scene4', 'scene5', 'scene6'];
@@ -6,42 +9,42 @@ document.addEventListener('DOMContentLoaded', () => {
     const models = [
         {
             gltfPath: '/models/MARIPOSA/Untitled.gltf',
-            texturePath: '../models/MARIPOSA/ButterflyTexture.jpg',
+            texturePath: '/models/MARIPOSA/ButterflyTexture.jpg',
             info: 'Información del modelo 1: Este modelo representa una mariposa con texturas personalizadas.',
             cameraPosition: { x: -1, y: 0, z: 4 },
             cameraTarget: { x: 0, y: 1, z: 0 }
         },
         {
             gltfPath: '/models/MARIPOSA_AZUL/butterfly.gltf',
-            texturePath: '../models/OTHER_MODEL/BackWingCol.png',
+            texturePath: '/models/OTHER_MODEL/BackWingCol.png',
             info: 'Información del modelo 2: Este es otro modelo de ejemplo.',
             cameraPosition: { x: 0, y: 0, z: 0 },
             cameraTarget: { x: 0, y: 1, z: 0 }
         },
         {
             gltfPath: '/models/MARIPOSA_TRES/MARIPOSA 3.gltf',
-            texturePath: '../models/ANOTHER_MODEL/NOMBREDELATEXTURA...',
+            texturePath: '/models/ANOTHER_MODEL/NOMBREDELATEXTURA...',
             info: 'Información del modelo 3: Modelo alternativo con otra textura.',
             cameraPosition: { x: 0, y: 0, z: 4 },
             cameraTarget: { x: 0, y: 1, z: 0 }
         },
         {
             gltfPath: '/models/FOURTH_MODEL/model.gltf',
-            texturePath: '../models/FOURTH_MODEL/modelTexture.jpg',
+            texturePath: '/models/FOURTH_MODEL/modelTexture.jpg',
             info: 'Información del modelo 4: Cuarto modelo en la galería.',
             cameraPosition: { x: 0, y: 2, z: 7 },
             cameraTarget: { x: 0, y: 0, z: 0 }
         },
         {
             gltfPath: '/models/FOURTH_MODEL/model.gltf',
-            texturePath: '../models/FOURTH_MODEL/modelTexture.jpg',
+            texturePath: '/models/FOURTH_MODEL/modelTexture.jpg',
             info: 'Información del modelo 4: Cuarto modelo en la galería.',
             cameraPosition: { x: 0, y: 2, z: 7 },
             cameraTarget: { x: 0, y: 0, z: 0 }
         },
         {
             gltfPath: '/models/FOURTH_MODEL/model.gltf',
-            texturePath: '../models/FOURTH_MODEL/modelTexture.jpg',
+            texturePath: '/models/FOURTH_MODEL/modelTexture.jpg',
             info: 'Información del modelo 4: Cuarto modelo en la galería.',
             cameraPosition: { x: 0, y: 2, z: 7 },
             cameraTarget: { x: 0, y: 0, z: 0 }
