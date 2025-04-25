@@ -1,0 +1,20 @@
+{
+	"geolocation": {
+		"data": {
+			"city": "Santiago de Cali",
+			"country": {
+				"code": "CO",
+				"name": "Colombia"
+			},
+			"subdivision": {
+				"code": "VAC",
+				"name": "Valle del Cauca Department"
+			},
+			"timezone": "America/Bogota",
+			"latitude": 3.4385,
+			"longitude": -76.523,
+			"postalCode": "760010"
+		},
+		"timestamp": 1745616772400
+	}
+}

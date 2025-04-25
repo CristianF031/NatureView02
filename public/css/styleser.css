@@ -1,0 +1,220 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Poetsen+One&display=swap');
+
+/* Estilos Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Cabin', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #127369;
+}
+
+/* Contenido Principal */
+.contenedor-principal {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.seccion-servicios h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: white;
+    margin: 2rem 0;
+    margin-bottom: 1rem;
+}
+
+/* Grid de Servicios */
+.grid-servicios {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.tarjeta-servicio {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.tarjeta-servicio:hover {
+    transform: translateY(-5px);
+}
+
+.servicio-imagen {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.servicio-contenido {
+    padding: 1.5rem;
+}
+
+.servicio-contenido h3 {
+    color: #2c3e50;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.lista-caracteristicas {
+    margin: 1rem 0;
+    padding-left: 1rem;
+}
+
+.lista-caracteristicas li {
+    padding: 0.3rem 0;
+    color: #4a5568;
+}
+
+.boton {
+    display: inline-block;
+    background: #D2691E;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    text-align: center;
+    transition: all 0.3s ease;
+    width: 100%;
+    border: none;
+}
+
+.boton:hover {
+    background: #A52A2A;
+    transform: scale(1.05);
+}
+
+/* Sección Ventajas */
+.ventajas {
+    background: #f8f9fa;
+    padding: 3rem 1rem;
+}
+
+.ventajas h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+}
+
+.grid-ventajas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.ventaja {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.ventaja h3 {
+    color: #2c3e50;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+/* Footer */
+.footer {
+    background-color: #10403B;
+    color: white;
+    padding: 2rem 1rem;
+    margin-top: 3rem;
+}
+
+.footerContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+}
+
+.footerColumn {
+    text-align: center;
+}
+
+.footerBottom {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .tarjeta-servicio {
+        margin: 0 1rem;
+    }
+
+    .servicio-imagen {
+        height: 180px;
+    }
+
+    .seccion-servicios h2 {
+        font-size: 1.8rem;
+
+
+    }
+}
+
+@media (max-width: 480px) {
+    .servicio-contenido h3 {
+        font-size: 1.2rem;
+    }
+
+    .boton {
+        padding: 0.7rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .ventajas h2 {
+        font-size: 1.6rem;
+    }
+}
+
+/* Animaciones */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tarjeta-servicio {
+    animation: slideIn 0.5s ease-out forwards;
+}
+
+/* Mejoras de Accesibilidad */
+a:focus,
+button:focus {
+    outline: 3px solid #ff8c00;
+    outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+}

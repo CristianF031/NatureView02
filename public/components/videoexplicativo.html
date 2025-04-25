@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Multilingüe</title>
+    <link rel="stylesheet" href="/css/videoexplicativo.css">
+    <link rel="stylesheet" href="../css/stylenavbar.css">
+</head>
+
+<body>
+
+    <header class="header">
+
+        <!-- Contenedor donde se insertará el navbar -->
+        <div id="navbar-container"></div>
+
+        <script src="../js/navbar.js"></script>
+
+    </header>
+
+    <section class="video-section" style="padding-top: 6rem;">
+        <div class="language-buttons">
+            <button class="lang-btn active" onclick="changeLanguage('es')">Español</button>
+            <button class="lang-btn" onclick="changeLanguage('en')">English</button>
+        </div>
+
+        <div class="video-container">
+            <video id="miVideo" controls>
+                <source id="source-es" src="../img/vides/español.mp4" type="video/mp4">
+                <source id="source-en" src="../img/vides/ingles.mp4" type="video/mp4">
+                Tu navegador no soporta la reproducción de video.
+            </video>
+        </div>
+    </section>
+
+    <script>
+        function changeLanguage(lang) {
+            const video = document.getElementById('miVideo');
+            const esBtn = document.querySelector('button[onclick="changeLanguage(\'es\')"]');
+            const enBtn = document.querySelector('button[onclick="changeLanguage(\'en\')"]');
+
+            esBtn.classList.remove('active');
+            enBtn.classList.remove('active');
+
+            if (lang === 'es') {
+                video.src = document.getElementById('source-es').src;
+                esBtn.classList.add('active');
+            } else {
+                video.src = document.getElementById('source-en').src;
+                enBtn.classList.add('active');
+            }
+
+            video.load();
+            video.play();
+        }
+
+        window.onload = function () {
+            changeLanguage('es');
+        }
+    </script>
+
+    <script src="/js/footer.js"></script>
+
+</body>
+
+</html>

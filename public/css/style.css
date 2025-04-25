@@ -1,0 +1,349 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Poetsen+One&display=swap');
+
+/* Estilos Base - Desktop First */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+}
+
+body {
+    font-family: 'Cabin', sans-serif;
+    background-color: #127369;
+    background-image: url(img/Prueba_fondo2_INDEX.jpg);
+
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Header - Desktop */
+.header {
+    background-image: url(../img/Prueba_fondo1.jpg);
+    background-position: center top -110px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+}
+
+.menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    background-color: #10403B;
+    padding: 20px;
+}
+
+.logo {
+    color: #FFFF;
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.menu .navbar ul {
+    display: flex;
+    gap: 15px;
+}
+
+.menu .navbar ul li a {
+    font-size: 18px;
+    color: #FFFF;
+    transition: color 0.3s ease;
+}
+
+.menu .navbar ul li a:hover {
+    color: #ff8c00;
+}
+
+#menu {
+    display: none;
+}
+
+.menu-icono {
+    width: 25px;
+    display: none;
+    filter: brightness(0) invert(1);
+    
+}
+
+/* Contenido Header */
+.header-content.container {
+    padding-top: 100px;
+}
+
+.header-info h1 {
+    color: #FFFF;
+    font-size: 70px;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.header-info p {
+    color: #FFFF;
+    font-size: 22px;
+    margin-bottom: 35px;
+}
+
+.boton-container{
+    display: flex;
+    justify-content: center;
+}
+
+.btn-1 {
+    display: inline-block;
+    padding: 15px 40px;
+    border-radius: 10px;
+    background-color: chocolate;
+    color: #FFFF;
+    font-size: 20px;
+    transition: all 0.3s ease;
+}
+
+.btn-1:hover {
+    background-color: #a52a2a;
+    transform: translateY(-2px);
+}
+
+.btn-2 {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 40px;
+    border-radius: 10px;
+    background-color: chocolate;
+    color: #FFFF;
+    font-size: 20px;
+    transition: all 0.3s ease;
+}
+
+.btn-2:hover {
+    background-color: #a52a2a;
+    transform: translateY(-2px);
+}
+
+.btn-3 {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 40px;
+    border-radius: 10px;
+    background-color: chocolate;
+    color: #FFFF;
+    font-size: 20px;
+    transition: all 0.3s ease;
+}
+
+.btn-3:hover {
+    background-color: #a52a2a;
+    transform: translateY(-2px);
+}
+
+.btn-4 {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 40px;
+    border-radius: 10px;
+    background-color: chocolate;
+    color: #FFFF;
+    font-size: 20px;
+    transition: all 0.3s ease;
+}
+
+.btn-4:hover {
+    background-color: #a52a2a;
+    transform: translateY(-2px);
+}
+
+/* Secciones Desktop */
+.Mariposario {
+    padding: 50px 0;
+}
+
+.mariposa-11 h2 {
+    text-align: center;
+    color: #ffffff;
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+.mariposa-1 p {
+    color: #FFFF;
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 1200px;
+    margin: 0 auto 30px;
+    padding: 0 20px;
+}
+
+.container2 {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 40px 0;
+}
+
+.images1 {
+    width: 300px;
+    border: 5px solid #ff8c00;
+    border-radius: 15px;
+}
+
+.images2 {
+    width: 250px;
+    border: 5px solid #ff8c00;
+    border-radius: 15px;
+}
+
+.images3 {
+    width: 450px;
+    border: 5px solid #ff8c00;
+    border-radius: 15px;
+}
+
+/* Footer Desktop */
+.footer {
+    background-color: #10403B;
+    padding: 50px 0;
+    margin-top: 50px;
+}
+
+.footerContainer {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footerColumn {
+    flex: 1;
+    color: #FFF;
+}
+
+.footerColumn h3 {
+    margin-bottom: 20px;
+}
+
+.footerBottom {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Media Queries para Responsividad (Mobile) */
+@media (max-width: 1200px) {
+    body {
+        background-color: #127369;
+        background-image: none !important;
+    }
+}
+
+
+
+
+
+@media (max-width: 992px) {
+    .menu .navbar {
+        position: fixed;
+        top: 70px;
+        right: -100%;
+        width: 100%;
+        height: 210px;
+        background-color: #10403B;
+        flex-direction: column;
+        transition: 0.3s;
+        padding-top: 30px;
+    }
+    
+    #menu:checked ~ .navbar {
+        right: 0;
+    }
+    
+    .menu .navbar ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+    }
+    
+    .menu-icono {
+        display: block;
+    }
+    
+    .header-info h1 {
+        font-size: 50px;
+    }
+    
+    .header-info p {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        background-position: center top -50px;
+        min-height: 60vh;
+    }
+    
+    .header-info h1 {
+        font-size: 40px;
+    }
+    
+    .mariposa-11 h2 {
+        font-size: 28px;
+    }
+    
+    .container2 {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    .images1, .images2, .images3 {
+        width: 60%;
+        max-width: 500px;
+    }
+    
+    .footerContainer {
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .header-info h1 {
+        font-size: 32px;
+    }
+    
+    .btn-1 {
+        width: 100%;
+        max-width: 300px;
+        padding: 12px 20px;
+        font-size: 18px;
+    }
+    
+    .mariposa-1 p {
+        font-size: 16px;
+    }
+    
+    .footerBottom {
+        font-size: 14px;
+    }
+}
+
