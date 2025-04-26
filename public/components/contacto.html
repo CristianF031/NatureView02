@@ -83,25 +83,92 @@
         <script src="/js/footer.js"></script>
 
         <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+        <!-- Agrega esto en tu HTML (preferiblemente después del formulario) -->
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p id="modal-message"></p>
+            </div>
+        </div>
+
+        <style>
+            /* Estilos para el modal */
+            .modal {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 1000;
+            }
+
+            .modal-content {
+                background-color: #fff;
+                margin: 15% auto;
+                padding: 20px;
+                width: 80%;
+                max-width: 500px;
+                border-radius: 5px;
+                position: relative;
+            }
+
+            .close {
+                color: #aaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+            .close:hover {
+                color: #000;
+            }
+        </style>
+
         <script>
             (function () {
                 emailjs.init('my3etLAgy--HCtJSZ'); // Tu Public Key
+
+                // Funciones para manejar el modal
+                const modal = document.getElementById('modal');
+                const modalMessage = document.getElementById('modal-message');
+                const span = document.getElementsByClassName('close')[0];
+
+                function openModal(message) {
+                    modalMessage.textContent = message;
+                    modal.style.display = 'block';
+                }
+
+                function closeModal() {
+                    modal.style.display = 'none';
+                }
+
+                // Event listeners para cerrar el modal
+                span.onclick = closeModal;
+                window.onclick = function (event) {
+                    if (event.target == modal) {
+                        closeModal();
+                    }
+                }
+
+                // Configuración del formulario
+                const form = document.getElementById('contact-form');
+
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    emailjs.sendForm('service_ve98m46', 'template_s9ivfx9', this)
+                        .then(function () {
+                            openModal('Mensaje enviado correctamente.');
+                            form.reset();
+                        }, function (error) {
+                            console.log('Error...', error);
+                            openModal('Hubo un error al enviar el mensaje.');
+                        });
+                });
             })();
-
-            const form = document.getElementById('contact-form');
-
-            form.addEventListener('submit', function (e) {
-                e.preventDefault();
-
-                emailjs.sendForm('service_ve98m46', 'template_s9ivfx9', this)
-                    .then(function () {
-                        alert('Mensaje enviado correctamente.');
-                        form.reset(); // Opcional: limpia el formulario
-                    }, function (error) {
-                        console.log('Error...', error);
-                        alert('Hubo un error al enviar el mensaje.');
-                    });
-            });
         </script>
 
     </section>
