@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="/css/stylenavbar.css">
     <link rel="stylesheet" href="/css/styleser.css">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 
     <style>
         .grid-container {
@@ -67,10 +70,69 @@
     </div>
 
     <script src="/js/navbar.js" type="module"></script>
-    <!-- Cargamos el script principal como módulo -->
-    <script type="module" src="/src/main.js"></script>
-
     <script src="/js/footer.js" type="module"></script>
+
+    <script type="module">
+        document.addEventListener('DOMContentLoaded', () => {
+            // Función para crear una escena con cubo
+            const initCubeScene = (containerId) => {
+                const container = document.getElementById(containerId);
+
+                // Escena
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(
+                    75,
+                    container.clientWidth / container.clientHeight,
+                    0.1,
+                    1000
+                );
+
+                // Renderer
+                const renderer = new THREE.WebGLRenderer({ antialias: true });
+                renderer.setSize(container.clientWidth, container.clientHeight);
+                renderer.setClearColor(0x10403B);
+                container.appendChild(renderer.domElement);
+
+                // Cubo
+                const geometry = new THREE.BoxGeometry(1, 1, 1);
+                const material = new THREE.MeshNormalMaterial();
+                const cube = new THREE.Mesh(geometry, material);
+                scene.add(cube);
+
+                // Cámara
+                camera.position.z = 3;
+
+                // Controles
+                const controls = new THREE.OrbitControls(camera, renderer.domElement);
+                controls.enableZoom = true;
+                controls.enablePan = false;
+
+                // Animación
+                function animate() {
+                    requestAnimationFrame(animate);
+
+                    cube.rotation.x += 0.01;
+                    cube.rotation.y += 0.01;
+
+                    renderer.render(scene, camera);
+                }
+
+                // Resize handler
+                window.addEventListener('resize', () => {
+                    camera.aspect = container.clientWidth / container.clientHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(container.clientWidth, container.clientHeight);
+                });
+
+                animate();
+            };
+
+            // Inicializar todas las escenas
+            ['scene1', 'scene2', 'scene3', 'scene4', 'scene5', 'scene6'].forEach(id => {
+                initCubeScene(id);
+            });
+        });
+    </script>
 </body>
 
 </html>
