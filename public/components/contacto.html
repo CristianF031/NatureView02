@@ -12,6 +12,14 @@
     <div id="navbar-container"></div>
 
     <script src="/js/navbar.js"></script>
+
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        (function () {
+            emailjs.init('my3etLAgy--HCtJSZ'); // Tu PUBLIC KEY
+        })();
+    </script>
+
 </head>
 
 <body>
@@ -20,7 +28,7 @@
 
         <div class="contacto-wrapper">
             <!-- Formulario de contacto -->
-            <form class="contacto-form">
+            <form id="contact-form" class="contacto-form">
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>
                     <input type="text" id="nombre" name="nombre" required>
@@ -74,6 +82,29 @@
 
         <script src="/js/footer.js"></script>
 
+        <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+        <script>
+            (function () {
+                emailjs.init('my3etLAgy--HCtJSZ'); // Tu Public Key
+            })();
+
+            const form = document.getElementById('contact-form');
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                emailjs.sendForm('service_ve98m46', 'template_s9ivfx9', this)
+                    .then(function () {
+                        alert('Mensaje enviado correctamente.');
+                        form.reset(); // Opcional: limpia el formulario
+                    }, function (error) {
+                        console.log('Error...', error);
+                        alert('Hubo un error al enviar el mensaje.');
+                    });
+            });
+        </script>
+
+    </section>
 </body>
 
 </html>
