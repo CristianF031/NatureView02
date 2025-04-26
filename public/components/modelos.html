@@ -11,6 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
 
     <style>
         .grid-container {
@@ -81,18 +82,18 @@
             const sceneConfigs = [
                 { // Escena 1
                     id: 'scene1',
-                    model: '/models/MARIPOSA/Untitled.gltf',
-                    texture: '/models/MARIPOSA/ButterflyTexture.jpg'
+                    model: '/models/MARIPOSA/mariposa001_monarca.glb',
+                    texture: '/models/MARIPOSA/ButterflyTexture.png'
                 },
                 { // Escena 2
                     id: 'scene2',
-                    model: '/models/MARIPOSA_AZUL/butterfly.gltf',
-                    texture: '/models/MARIPOSA_AZUL/BackWingCol.png'
+                    model: '/models/MARIPOSA_AZUL/mariposa2.glb',
+                    texture: '/models/MARIPOSA_AZUL/textura.jpg'
                 },
                 { // Escena 3
                     id: 'scene3',
-                    model: '/models/MARIPOSA_TRES/MARIPOSA%203.gltf',
-                    texture: null
+                    model: '/models/MARIPOSA_TRES/mariposa3.glb',
+                    texture: '/models/MARIPOSA_TRES/textura.jpg'
                 },
                 { // Escenas 4-6 (cubos)
                     id: 'scene4',
@@ -192,11 +193,16 @@
                         const center = box.getCenter(new THREE.Vector3());
                         const size = box.getSize(new THREE.Vector3());
 
-                        camera.position.copy(center);
-                        camera.position.z = size.length() * 1.5;
+                        const distance = size.length(); // Aumentamos un 20% la distancia para mejor visibilidad
+                        const angle = Math.PI / 2; // 45° en radianes
+                        camera.position.set(
+                            center.x + distance * 0,
+                            center.y + distance * 0.8, // Pequeña elevación en Y
+                            center.z + distance * 0.2
+                        );
                         camera.lookAt(center);
                     } else {
-                        camera.position.z = 3;
+                        camera.position.z = 2;
                     }
 
                     // Controles
