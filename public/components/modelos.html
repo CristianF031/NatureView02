@@ -73,64 +73,172 @@
     <script src="/js/footer.js" type="module"></script>
 
     <script type="module">
-        document.addEventListener('DOMContentLoaded', () => {
-            // Función para crear una escena con cubo
-            const initCubeScene = (containerId) => {
-                const container = document.getElementById(containerId);
+        document.addEventListener('DOMContentLoaded', async () => {
+            const textureLoader = new THREE.TextureLoader();
+            const gltfLoader = new THREE.GLTFLoader();
 
-                // Escena
-                const scene = new THREE.Scene();
-                const camera = new THREE.PerspectiveCamera(
-                    75,
-                    container.clientWidth / container.clientHeight,
-                    0.1,
-                    1000
-                );
-
-                // Renderer
-                const renderer = new THREE.WebGLRenderer({ antialias: true });
-                renderer.setSize(container.clientWidth, container.clientHeight);
-                renderer.setClearColor(0x10403B);
-                container.appendChild(renderer.domElement);
-
-                // Cubo
-                const geometry = new THREE.BoxGeometry(1, 1, 1);
-                const material = new THREE.MeshNormalMaterial();
-                const cube = new THREE.Mesh(geometry, material);
-                scene.add(cube);
-
-                // Cámara
-                camera.position.z = 3;
-
-                // Controles
-                const controls = new THREE.OrbitControls(camera, renderer.domElement);
-                controls.enableZoom = true;
-                controls.enablePan = false;
-
-                // Animación
-                function animate() {
-                    requestAnimationFrame(animate);
-
-                    cube.rotation.x += 0.01;
-                    cube.rotation.y += 0.01;
-
-                    renderer.render(scene, camera);
+            // Configuración de modelos
+            const sceneConfigs = [
+                { // Escena 1
+                    id: 'scene1',
+                    model: '/models/MARIPOSA/Untitled.gltf',
+                    texture: '/models/MARIPOSA/ButterflyTexture.jpg'
+                },
+                { // Escena 2
+                    id: 'scene2',
+                    model: '/models/MARIPOSA_AZUL/butterfly.gltf',
+                    texture: '/models/MARIPOSA_AZUL/BackWingCol.png'
+                },
+                { // Escena 3
+                    id: 'scene3',
+                    model: '/models/MARIPOSA_TRES/MARIPOSA%203.gltf',
+                    texture: null
+                },
+                { // Escenas 4-6 (cubos)
+                    id: 'scene4',
+                    model: null
+                },
+                {
+                    id: 'scene5',
+                    model: null
+                },
+                {
+                    id: 'scene6',
+                    model: null
                 }
+            ];
 
-                // Resize handler
-                window.addEventListener('resize', () => {
-                    camera.aspect = container.clientWidth / container.clientHeight;
-                    camera.updateProjectionMatrix();
+            // Función para cargar modelos
+            const loadModel = async (config) => {
+                try {
+                    if (!config.model) return createCube(); // Cubos para escenas sin modelo
+
+                    // Cargar textura si existe
+                    let texture = null;
+                    if (config.texture) {
+                        texture = await new Promise((resolve, reject) => {
+                            textureLoader.load(config.texture, resolve, undefined, reject);
+                        });
+                    }
+
+                    // Cargar modelo GLTF
+                    const gltf = await new Promise((resolve, reject) => {
+                        gltfLoader.load(config.model, resolve, undefined, reject);
+                    });
+
+                    // Aplicar textura si existe
+                    if (texture) {
+                        gltf.scene.traverse(child => {
+                            if (child.isMesh) {
+                                child.material.map = texture;
+                                child.material.needsUpdate = true;
+                            }
+                        });
+                    }
+
+                    return gltf.scene;
+
+                } catch (error) {
+                    console.error(`Error loading ${config.model}:`, error);
+                    throw error;
+                }
+            };
+
+            // Función para crear cubo
+            const createCube = () => {
+                return new THREE.Mesh(
+                    new THREE.BoxGeometry(1, 1, 1),
+                    new THREE.MeshNormalMaterial()
+                );
+            };
+
+            // Función principal para inicializar escenas
+            const initScene = async (config) => {
+                try {
+                    const container = document.getElementById(config.id);
+
+                    // Configuración Three.js
+                    const scene = new THREE.Scene();
+                    const camera = new THREE.PerspectiveCamera(
+                        75,
+                        container.clientWidth / container.clientHeight,
+                        0.1,
+                        1000
+                    );
+
+                    const renderer = new THREE.WebGLRenderer({
+                        antialias: true,
+                        alpha: true
+                    });
+
                     renderer.setSize(container.clientWidth, container.clientHeight);
-                });
+                    container.appendChild(renderer.domElement);
 
-                animate();
+                    // Iluminación
+                    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+                    scene.add(ambientLight);
+
+                    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+                    directionalLight.position.set(1, 1, 1);
+                    scene.add(directionalLight);
+
+                    // Cargar modelo
+                    const model = await loadModel(config);
+                    scene.add(model);
+
+                    // Configurar cámara
+                    if (config.model) {
+                        const box = new THREE.Box3().setFromObject(model);
+                        const center = box.getCenter(new THREE.Vector3());
+                        const size = box.getSize(new THREE.Vector3());
+
+                        camera.position.copy(center);
+                        camera.position.z = size.length() * 1.5;
+                        camera.lookAt(center);
+                    } else {
+                        camera.position.z = 3;
+                    }
+
+                    // Controles
+                    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+                    controls.enableZoom = true;
+                    controls.enablePan = false;
+
+                    // Animación
+                    const animate = () => {
+                        requestAnimationFrame(animate);
+
+                        if (!config.model) { // Rotar solo los cubos
+                            model.rotation.x += 0.01;
+                            model.rotation.y += 0.01;
+                        }
+
+                        controls.update();
+                        renderer.render(scene, camera);
+                    };
+
+                    // Manejar redimensionado
+                    window.addEventListener('resize', () => {
+                        camera.aspect = container.clientWidth / container.clientHeight;
+                        camera.updateProjectionMatrix();
+                        renderer.setSize(container.clientWidth, container.clientHeight);
+                    });
+
+                    animate();
+
+                } catch (error) {
+                    console.error(`Error en ${config.id}:`, error);
+                    const container = document.getElementById(config.id);
+                    container.innerHTML = `<div class="error">Error cargando el modelo</div>`;
+                }
             };
 
             // Inicializar todas las escenas
-            ['scene1', 'scene2', 'scene3', 'scene4', 'scene5', 'scene6'].forEach(id => {
-                initCubeScene(id);
-            });
+            try {
+                await Promise.all(sceneConfigs.map(config => initScene(config)));
+            } catch (error) {
+                console.error('Error general:', error);
+            }
         });
     </script>
 </body>
