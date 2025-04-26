@@ -29,7 +29,7 @@
             border: 2px solid #10403B;
             border-radius: 10px;
             overflow: hidden;
-            background: #f8f8f8;
+            background: #8feaff;
         }
 
         @media (max-width: 992px) {
@@ -66,8 +66,7 @@
         <div id="scene2" class="scene-container"></div>
         <div id="scene3" class="scene-container"></div>
         <div id="scene4" class="scene-container"></div>
-        <div id="scene5" class="scene-container"></div>
-        <div id="scene6" class="scene-container"></div>
+        <div id="scene5" class="scene-container" style="margin-left: 50%"></div>
     </div>
 
     <script src="/js/navbar.js" type="module"></script>
@@ -82,60 +81,42 @@
             const sceneConfigs = [
                 { // Escena 1
                     id: 'scene1',
-                    model: '/models/MARIPOSA/mariposa001_monarca.glb',
-                    texture: '/models/MARIPOSA/ButterflyTexture.png'
+                    model: '/models/Monarca/monarca.glb'
                 },
                 { // Escena 2
                     id: 'scene2',
-                    model: '/models/MARIPOSA_AZUL/mariposa2.glb',
-                    texture: '/models/MARIPOSA_AZUL/textura.jpg'
+                    model: '/models/Siproetastelenes/Siproetastelenes.glb'
                 },
                 { // Escena 3
                     id: 'scene3',
-                    model: '/models/MARIPOSA_TRES/mariposa3.glb',
-                    texture: '/models/MARIPOSA_TRES/textura.jpg'
+                    model: '/models/Peleides/Peleides.glb',
                 },
-                { // Escenas 4-6 (cubos)
+                {
                     id: 'scene4',
-                    model: null
+                    model: '/models/Huevo/huevo.glb',
                 },
                 {
                     id: 'scene5',
-                    model: null
-                },
-                {
-                    id: 'scene6',
-                    model: null
+                    model: '/models/Crisalida/crisalida.glb',
                 }
             ];
 
             // Función para cargar modelos
             const loadModel = async (config) => {
                 try {
-                    if (!config.model) return createCube(); // Cubos para escenas sin modelo
-
-                    // Cargar textura si existe
-                    let texture = null;
-                    if (config.texture) {
-                        texture = await new Promise((resolve, reject) => {
-                            textureLoader.load(config.texture, resolve, undefined, reject);
-                        });
-                    }
-
-                    // Cargar modelo GLTF
                     const gltf = await new Promise((resolve, reject) => {
                         gltfLoader.load(config.model, resolve, undefined, reject);
                     });
 
-                    // Aplicar textura si existe
-                    if (texture) {
-                        gltf.scene.traverse(child => {
-                            if (child.isMesh) {
-                                child.material.map = texture;
-                                child.material.needsUpdate = true;
-                            }
-                        });
-                    }
+                    // Optimizar materiales
+                    gltf.scene.traverse(child => {
+                        if (child.isMesh) {
+                            child.material.metalness = 0.2;
+                            child.material.roughness = 0.6;
+                            child.castShadow = true;
+                            child.receiveShadow = true;
+                        }
+                    });
 
                     return gltf.scene;
 
@@ -143,14 +124,6 @@
                     console.error(`Error loading ${config.model}:`, error);
                     throw error;
                 }
-            };
-
-            // Función para crear cubo
-            const createCube = () => {
-                return new THREE.Mesh(
-                    new THREE.BoxGeometry(1, 1, 1),
-                    new THREE.MeshNormalMaterial()
-                );
             };
 
             // Función principal para inicializar escenas
@@ -171,33 +144,48 @@
                         antialias: true,
                         alpha: true
                     });
-
                     renderer.setSize(container.clientWidth, container.clientHeight);
+                    renderer.shadowMap.enabled = true;
+                    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
                     container.appendChild(renderer.domElement);
 
-                    // Iluminación
-                    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+                    // Sistema de iluminación mejorado
+                    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
                     scene.add(ambientLight);
 
-                    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-                    directionalLight.position.set(1, 1, 1);
-                    scene.add(directionalLight);
+                    // Luz principal (direccional)
+                    const mainLight = new THREE.DirectionalLight(0xffffff, 1.0);
+                    mainLight.position.set(5, 5, 5);
+                    mainLight.castShadow = true;
+                    mainLight.shadow.mapSize.width = 1024;
+                    mainLight.shadow.mapSize.height = 1024;
+                    scene.add(mainLight);
+
+                    // Luz de relleno (hemisférica)
+                    const fillLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.3);
+                    fillLight.position.set(0, 5, 0);
+                    scene.add(fillLight);
+
+                    // Luz de acento (puntual)
+                    const accentLight = new THREE.PointLight(0xffaa00, 0.5, 20);
+                    accentLight.position.set(-3, 3, -3);
+                    scene.add(accentLight);
 
                     // Cargar modelo
                     const model = await loadModel(config);
                     scene.add(model);
 
-                    // Configurar cámara
+                    // Configurar cámara (sin cambios)
                     if (config.model) {
                         const box = new THREE.Box3().setFromObject(model);
                         const center = box.getCenter(new THREE.Vector3());
                         const size = box.getSize(new THREE.Vector3());
 
-                        const distance = size.length(); // Aumentamos un 20% la distancia para mejor visibilidad
-                        const angle = Math.PI / 2; // 45° en radianes
+                        const distance = size.length();
+                        const angle = Math.PI / 2;
                         camera.position.set(
                             center.x + distance * 0,
-                            center.y + distance * 0.8, // Pequeña elevación en Y
+                            center.y + distance * 0.8,
                             center.z + distance * 0.2
                         );
                         camera.lookAt(center);
@@ -209,16 +197,12 @@
                     const controls = new THREE.OrbitControls(camera, renderer.domElement);
                     controls.enableZoom = true;
                     controls.enablePan = false;
+                    controls.enableDamping = true;
+                    controls.dampingFactor = 0.05;
 
                     // Animación
                     const animate = () => {
                         requestAnimationFrame(animate);
-
-                        if (!config.model) { // Rotar solo los cubos
-                            model.rotation.x += 0.01;
-                            model.rotation.y += 0.01;
-                        }
-
                         controls.update();
                         renderer.render(scene, camera);
                     };
@@ -247,6 +231,7 @@
             }
         });
     </script>
+
 </body>
 
 </html>
