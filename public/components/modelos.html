@@ -105,12 +105,7 @@
             font-size: 1.5em;
         }
 
-        /* Ajustes para la escena 5 */
-        #scene5 {
-            grid-column: 1 / -1;
-            width: 50%;
-            margin: 0 auto;
-        }
+       
 
         @media (max-width: 992px) {
             .grid-container {
@@ -121,10 +116,6 @@
 
             .scene-container {
                 height: 250px;
-            }
-
-            #scene5 {
-                width: 75%;
             }
         }
 
@@ -137,11 +128,6 @@
 
             .scene-container {
                 height: 220px;
-            }
-
-            #scene5 {
-                width: 100%;
-                margin-left: 0;
             }
         }
     </style>
@@ -156,6 +142,7 @@
         <div id="scene3" class="scene-container"></div>
         <div id="scene4" class="scene-container"></div>
         <div id="scene5" class="scene-container"></div>
+        <div id="scene6" class="scene-container"></div>
     </div>
 
     <!-- Modal -->
@@ -216,6 +203,12 @@
                     model: '/models/Crisalida/crisalida.glb',
                     title: 'Etapa de Crisálida',
                     info: 'La etapa de crisálida es la fase de transformación en el ciclo de vida de las mariposas. Después de la etapa de oruga, la oruga se envuelve en una capa protectora llamada crisálida o pupa. Durante este período, la oruga sufre una metamorfosis interna, transformándose en una mariposa adulta. La crisálida puede ser de varios colores y texturas, dependiendo de la especie. Este proceso puede durar desde unos pocos días hasta varias semanas, hasta que la mariposa está completamente formada y lista para salir.'
+                },
+                {
+                    id: 'scene6',
+                    model: '/models/Oruga/oruga.glb',
+                    title: 'Oruga',
+                    info: 'La oruga es la fase larval de la mariposa. Su principal función es comer y crecer rápidamente, almacenando energía para su transformación. Tiene un cuerpo blando, segmentado y suele alimentarse de hojas.'
                 }
             ];
 
@@ -275,21 +268,59 @@
                     renderer.setSize(container.clientWidth, container.clientHeight);
                     renderer.shadowMap.enabled = true;
                     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+                    renderer.shadowMap.autoUpdate = true;
+                    renderer.physicallyCorrectLights = true;
                     container.appendChild(renderer.domElement);
 
-                    // Iluminación
-                    scene.add(
-                        new THREE.AmbientLight(0xffffff, 0.4),
-                        new THREE.DirectionalLight(0xffffff, 1.0)
-                            .position.set(5, 5, 5)
-                            .castShadow = true,
-                        new THREE.HemisphereLight(0xffffff, 0x444444, 0.3),
-                        new THREE.PointLight(0xffaa00, 0.5, 20).position.set(-3, 3, -3)
+                    // Sistema de iluminación mejorado
+                    const ambientLight = new THREE.AmbientLight(0xffffff, 2);
+                    scene.add(ambientLight);
+
+                    // Luz principal direccional con sombras
+                    const mainLight = new THREE.DirectionalLight(0xffffff, 1.2);
+                    mainLight.position.set(5, 8, 5);
+                    mainLight.castShadow = true;
+                    mainLight.shadow.mapSize.width = 2048;
+                    mainLight.shadow.mapSize.height = 2048;
+                    mainLight.shadow.camera.near = 0.5;
+                    mainLight.shadow.camera.far = 50;
+                    mainLight.shadow.camera.left = -10;
+                    mainLight.shadow.camera.right = 10;
+                    mainLight.shadow.camera.top = 10;
+                    mainLight.shadow.camera.bottom = -10;
+                    scene.add(mainLight);
+
+                    // Luz de relleno
+                    const fillLight = new THREE.DirectionalLight(0xffffff, 0.4);
+                    fillLight.position.set(-5, 3, -5);
+                    scene.add(fillLight);
+
+                    // Luz ambiental direccional
+                    const hemisphereLight = new THREE.HemisphereLight(
+                        0xffffbb, // color del cielo
+                        0x080820, // color del suelo
+                        0.6 // intensidad
                     );
+                    scene.add(hemisphereLight);
+
+                    // Luz de acento
+                    const accentLight = new THREE.PointLight(0xffeedd, 0.8, 25);
+                    accentLight.position.set(-3, 5, -3);
+                    accentLight.castShadow = true;
+                    scene.add(accentLight);
 
                     // Cargar modelo
                     const model = await loadModel(config);
                     scene.add(model);
+
+                    // Ajustar sombras según el modelo
+                    model.traverse(child => {
+                        if (child.isMesh) {
+                            child.material.needsUpdate = true;
+                            child.material.metalness = 0.1;
+                            child.material.roughness = 0.5;
+                        }
+                    });
 
                     // Posicionamiento de cámara
                     const box = new THREE.Box3().setFromObject(model);

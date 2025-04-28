@@ -14,6 +14,96 @@
     <!-- Opcional: Para cargar modelos 3D -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 
+
+    <style>
+        .container2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .images2 {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        /* Nuevos estilos para el botón de información */
+        .info-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(16, 64, 59, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .info-button:hover {
+            background: #10403B;
+            transform: scale(1.1);
+        }
+
+        /* Estilos del modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px 20px 20px;
+            border-radius: 10px;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.5em;
+        }
+
+        /* Contenedor de imagen relativo para posicionar el botón */
+        .image-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .image-container {
+            color: black;
+        }
+
+        #modalText {
+            margin-top: 1rem;
+            color: black;
+        }
+    </style>
 </head>
 
 <body>
@@ -21,16 +111,13 @@
     <header class="header">
         <!-- Contenedor donde se insertará el navbar -->
         <div id="navbar-container"></div>
-
         <script src="js/navbar.js"></script>
 
         <div class="header-content container">
-
             <div class="header-info">
                 <h1>NatureView</h1>
                 <p>Descubre la vida en cada vuelo</p>
                 <a href="components/videoexplicativo.html" class="btn-1">Descubre</a>
-
             </div>
         </div>
     </header>
@@ -55,7 +142,7 @@
 
         </div>
 
-        <div class="container2">
+        <div class="container">
 
             <img class="images1" src="img/ARCHIVOS_MARIPOSARIO-20250308T145705Z-001/ARCHIVOS_MARIPOSARIO/IMG_5897.jpg"
                 alt="Mariposa Referencia">
@@ -65,7 +152,7 @@
 
         </div>
 
-        <div class="boton-container">
+        <div class="boton-container" style="margin-top: 2rem;">
             <a href="components/videoexplicativo.html" class="btn-2">ESPECIES EN EL MARIPOSARIO</a>
         </div>
     </section>
@@ -109,18 +196,75 @@
 
             <div class="container2">
 
-                <img class="images2"
-                    src="img/ARCHIVOS_MARIPOSARIO-20250308T145705Z-001/ARCHIVOS_MARIPOSARIO/IMG_5742.jpg"
-                    alt="Etapa Inicial - Huevos">
-                <img class="images2"
-                    src="img/ARCHIVOS_MARIPOSARIO-20250308T145705Z-001/ARCHIVOS_MARIPOSARIO/IMG_5862.jpg" alt="Capullo">
-                <img class="images2"
-                    src="img/ARCHIVOS_MARIPOSARIO-20250308T145705Z-001/ARCHIVOS_MARIPOSARIO/IMG_5832.jpg" alt="Oruga">
-                <img class="images2"
-                    src="img/ARCHIVOS_MARIPOSARIO-20250308T145705Z-001/ARCHIVOS_MARIPOSARIO/IMG_5807.jpg"
-                    alt="Mariposa">
+                <div class="image-container"
+                    data-info="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore (Huevos)">
+                    <img class="images2"
+                        src="img/ARCHIVOS_MARIPOSARIO-20250308T145705Z-001/ARCHIVOS_MARIPOSARIO/IMG_5742.jpg"
+                        alt="Etapa Inicial - Huevos">
+                    <button class="info-button" onclick="showModal(this)">i</button>
+                </div>
+
+
+                <div class="image-container"
+                    data-info="Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore (Capullo)">
+                    <img class="images2"
+                        src="img/ARCHIVOS_MARIPOSARIO-20250308T145705Z-001/ARCHIVOS_MARIPOSARIO/IMG_5862.jpg"
+                        alt="Capullo">
+                    <button class="info-button" onclick="showModal(this)">i</button>
+                </div>
+
+                <div class="image-container"
+                    data-info="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia (Oruga)">
+                    <img class="images2"
+                        src="img/ARCHIVOS_MARIPOSARIO-20250308T145705Z-001/ARCHIVOS_MARIPOSARIO/IMG_5832.jpg"
+                        alt="Oruga">
+                    <button class="info-button" onclick="showModal(this)">i</button>
+                </div>
+
+                <div class="image-container"
+                    data-info="Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit (Mariposa)">
+                    <img class="images2"
+                        src="img/ARCHIVOS_MARIPOSARIO-20250308T145705Z-001/ARCHIVOS_MARIPOSARIO/IMG_5807.jpg"
+                        alt="Mariposa">
+                    <button class="info-button" onclick="showModal(this)">i</button>
+                </div>
 
             </div>
+
+            <!-- Modal -->
+            <div id="infoModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal" onclick="closeModal()">&times;</span>
+                    <h3 id="modalTitle"></h3>
+                    <p id="modalText"></p>
+                </div>
+            </div>
+
+            <script>
+                // Función para mostrar el modal con la información
+                function showModal(button) {
+                    const container = button.closest('.image-container');
+                    const info = container.dataset.info;
+                    const title = container.querySelector('img').alt;
+
+                    document.getElementById('modalTitle').textContent = title;
+                    document.getElementById('modalText').textContent = info;
+                    document.getElementById('infoModal').style.display = 'flex';
+                }
+
+                // Función para cerrar el modal
+                function closeModal() {
+                    document.getElementById('infoModal').style.display = 'none';
+                }
+
+                // Cerrar modal al hacer click fuera
+                window.onclick = function (event) {
+                    const modal = document.getElementById('infoModal');
+                    if (event.target === modal) {
+                        closeModal();
+                    }
+                }
+            </script>
 
             <div class="boton-container">
                 <a href="components/modelos.html" class="btn-3">MODELADOS 3D</a>
@@ -134,19 +278,19 @@
             <div class="mariposa-11">
                 <h2>HISTORIA DEL MARIPOSARIO DE ANDOKE</h2>
                 <p>
-                    El Mariposario de Andoke fue fundado en 2009 por una pareja interesada en 
-                    la conservación del medio ambiente. Su objetivo principal es promover 
-                    la educación ambiental y la conciencia sobre la importancia de la biodiversidad, 
-                    con un enfoque particular en las mariposas. Andoke ha sido reconocido por su trabajo 
-                    en la conservación de la naturaleza 
-                    y ha recibido premios como el Premio Mobil 
-                    para la protección de la biodiversidad de Colombia. 
-                    En 2021, el Ministerio de Ciencia, Tecnología e 
+                    El Mariposario de Andoke fue fundado en 2009 por una pareja interesada en
+                    la conservación del medio ambiente. Su objetivo principal es promover
+                    la educación ambiental y la conciencia sobre la importancia de la biodiversidad,
+                    con un enfoque particular en las mariposas. Andoke ha sido reconocido por su trabajo
+                    en la conservación de la naturaleza
+                    y ha recibido premios como el Premio Mobil
+                    para la protección de la biodiversidad de Colombia.
+                    En 2021, el Ministerio de Ciencia, Tecnología e
                     Innovación de Colombia reconoció a Andoke como un Centro de Ciencia,
-                     destacando su contribución a la educación ambiental y la conservación.
-                     Además, cuenta con un mariposario que alberga más de 15 especies nativas de mariposas,
-                     un mapa temático de Colombia de 2.000 m² y senderos ecológicos que permiten a los visitantes 
-                     conectarse con la naturaleza
+                    destacando su contribución a la educación ambiental y la conservación.
+                    Además, cuenta con un mariposario que alberga más de 15 especies nativas de mariposas,
+                    un mapa temático de Colombia de 2.000 m² y senderos ecológicos que permiten a los visitantes
+                    conectarse con la naturaleza
                 </p>
             </div>
 
@@ -154,16 +298,43 @@
         </div>
 
 
-        <div class="container2">
+        <div class="container">
 
-            <img class="images3" src="img/ARCHIVOS_MARIPOSARIO-20250308T145705Z-001/ARCHIVOS_MARIPOSARIO/IMG_5839.jpg"
+            <img class="images1" src="img/ARCHIVOS_MARIPOSARIO-20250308T145705Z-001/ARCHIVOS_MARIPOSARIO/IMG_5839.jpg"
                 alt="Entorno Mariposario">
-            <img class="images3" src="img/ARCHIVOS_MARIPOSARIO-20250308T145705Z-001/ARCHIVOS_MARIPOSARIO/IMG_5842.jpg"
-                alt="Entorno Mariposario Sillas">
-
+            <img class="images1" src="img/ARCHIVOS_MARIPOSARIO-20250308T145705Z-001/ARCHIVOS_MARIPOSARIO/IMG_5842.jpg"
+                alt="ntorno Mariposario Sillas">
         </div>
 
-        <div class="boton-container">
+
+        <style>
+            /* Estilos generales para pantallas grandes */
+            .container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                flex-wrap: wrap;
+                /* Permite que las imágenes se envuelvan en pantallas pequeñas */
+            }
+
+            /* Estilos para dispositivos pequeños */
+            @media (max-width: 768px) {
+                .container {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 1rem;
+                    padding: 0 1rem;
+                    /* Agrega un padding para evitar que las imágenes queden pegadas al borde */
+                }
+            }
+        </style>
+
+
+
+        <div class="boton-container" style="margin-top: 2rem;">
             <a href="https://www.andoke.com.co/" class="btn-4">DESCUBRE MÁS</a>
         </div>
 
