@@ -4,20 +4,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Multilingüe</title>
+    <title>Especies de Mariposas en Andoke</title>
     <link rel="stylesheet" href="/css/videoexplicativo.css">
     <link rel="stylesheet" href="../css/stylenavbar.css">
+    <style>
+        .species-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .species-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .species-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .species-content {
+            padding: 1rem;
+            min-height: 250px;
+        }
+        
+        .language-content {
+            display: none;
+        }
+        
+        .language-content.active {
+            display: block;
+        }
+        
+        @media (max-width: 1024px) {
+            .species-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .species-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
     <header class="header">
-
-        <!-- Contenedor donde se insertará el navbar -->
         <div id="navbar-container"></div>
-
         <script src="../js/navbar.js"></script>
-
     </header>
 
     <section class="video-section" style="padding-top: 6rem;">
@@ -26,38 +71,135 @@
             <button class="lang-btn" onclick="changeLanguage('en')">English</button>
         </div>
 
-        <div class="video-container">
-            <video id="miVideo" controls>
-                <source id="source-es" src="../img/vides/español.mp4" type="video/mp4">
-                <source id="source-en" src="../img/vides/ingles.mp4" type="video/mp4">
-                Tu navegador no soporta la reproducción de video.
-            </video>
+        <div class="species-container">
+            <!-- Fila 1 -->
+            <div class="species-card">
+                <img src="" alt="Heliconius" class="species-image">
+                <div class="species-content">
+                    <div class="language-content es active">
+                        <h3>Mariposa Heliconius</h3>
+                        <p><em>Heliconius</em></p>
+                        <p>La mariposa Heliconius es un género tropical de mariposas 
+                            con alas brillantes y patrones complejos. Son polinizadoras
+                             importantes y se alimentan de plantas específicas, mostrando 
+                             adaptaciones ecológicas notables.</p>
+                    </div>
+                    <div class="language-content en">
+                        <h3>mariposa Caligo</h3>
+                        <p><em>Danaus plexippus</em></p>
+                        <p>Famous for epic migration and orange/black colors.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="species-card">
+                <img src="https://images.unsplash.com/photo-1534766555765-27ceb5a5ec4f" alt="Morpho" class="species-image">
+                <div class="species-content">
+                    <div class="language-content es active">
+                        <h3>Mariposa Greta Oto</h3>
+                        <p><em>Greta oto</em></p>
+                        <p>conocida como la "mariposa de alas de cristal", es famosa por sus alas 
+                            transparentes con un borde negro. Habita en áreas tropicales de 
+                            América Central y es conocida por su capacidad para camuflarse debido
+                             a la transparencia de sus alas, lo que la hace difícil de detectar por los 
+                             depredadores.</p>
+                    </div>
+                    <div class="language-content en">
+                        <h3>Blue Morpho</h3>
+                        <p><em>Morpho peleides</em></p>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="species-card">
+                <img src="https://images.unsplash.com/photo-1596461404964-8d7bd386d5ab" alt="Alas de pájaro" class="species-image">
+                <div class="species-content">
+                    <div class="language-content es active">
+                        <h3>Alas de Pájaro</h3>
+                        <p><em>Ornithoptera alexandrae</em></p>
+                        <p>La mariposa más grande del mundo.</p>
+                    </div>
+                    <div class="language-content en">
+                        <h3>Birdwing</h3>
+                        <p><em>Ornithoptera alexandrae</em></p>
+                        <p>World's largest butterfly.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fila 2 -->
+            <div class="species-card">
+                <img src="https://images.unsplash.com/photo-1587135991058-8816d0f1b5eb" alt="Cola de golondrina" class="species-image">
+                <div class="species-content">
+                    <div class="language-content es active">
+                        <h3>Mariposa Dione juno</h3>
+                        <p><em>Dione juno</em></p>
+                        <p>Conocida como "mariposa luminaria de borde dorado" es Dione juno.
+                             Esta especie pertenece a la familia Nymphalidae y se encuentra en 
+                             América Central y América del Sur. 
+                             Sus alas tienen bordes dorados que le 
+                             dan un aspecto brillante, especialmente bajo la luz</p>
+                    </div>
+                    <div class="language-content en">
+                        <h3>Swallowtail</h3>
+                        <p><em>Papilio machaon</em></p>
+                        <p>Wings with tail-like extensions.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="species-card">
+                <img src="https://images.unsplash.com/photo-1574086424297-0f5f6d6a04a1" alt="Cristal" class="species-image">
+                <div class="species-content">
+                    <div class="language-content es active">
+                        <h3>Mariposa Caligo</h3>
+                        <p><em>Caligo</em></p>
+                        <p>Es un género conocido por sus grandes alas y 
+                            patrones que imitan ojos de animales. Su nombre 
+                            científico es Caligo atreus para una de las especies más conocidas. 
+                            Estas mariposas habitan principalmente en las selvas tropicales de América Central y 
+                            América del Sur.</p>
+                    </div>
+                    <div class="language-content en">
+                        <h3>Glasswing</h3>
+                        <p><em>Greta oto</em></p>
+                        <p>Transparent wings for camouflage.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="species-card">
+                <img src="https://images.unsplash.com/photo-1595875675393-1445c57ee6e4" alt="Pavo real" class="species-image">
+                <div class="species-content">
+                    <div class="language-content es active">
+                        <h3>Pavo Real</h3>
+                        <p><em>Aglais io</em></p>
+                        <p>Ocelos que imitan ojos de depredadores.</p>
+                    </div>
+                    <div class="language-content en">
+                        <h3>Peacock</h3>
+                        <p><em>Aglais io</em></p>
+                        <p>Eye-like patterns to scare predators.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <script>
         function changeLanguage(lang) {
-            const video = document.getElementById('miVideo');
-            const esBtn = document.querySelector('button[onclick="changeLanguage(\'es\')"]');
-            const enBtn = document.querySelector('button[onclick="changeLanguage(\'en\')"]');
-
-            esBtn.classList.remove('active');
-            enBtn.classList.remove('active');
-
-            if (lang === 'es') {
-                video.src = document.getElementById('source-es').src;
-                esBtn.classList.add('active');
-            } else {
-                video.src = document.getElementById('source-en').src;
-                enBtn.classList.add('active');
-            }
-
-            video.load();
-            video.play();
-        }
-
-        window.onload = function () {
-            changeLanguage('es');
+            document.querySelectorAll('.language-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelectorAll(`.language-content.${lang}`).forEach(content => {
+                content.classList.add('active');
+            });
+            
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`button[onclick="changeLanguage('${lang}')"]`).classList.add('active');
         }
     </script>
 
