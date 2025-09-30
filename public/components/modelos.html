@@ -271,20 +271,33 @@
                         const img = document.createElement('img');
                         img.src = config.image;
                         img.alt = config.title || 'QR';
-                        img.style.width = "70%";
-                        img.style.height = "70%";
+                        img.style.width = "100%";
+                        img.style.height = "50%";
                         img.style.objectFit = "contain";
                         img.style.display = "block";
                         img.style.margin = "20px auto";
                         img.style.cursor = "pointer";
 
-                        // Opcional: al hacer click abre el link (cambia la URL por la que quieras)
-                        img.addEventListener('click', () => {
-                            window.open('https://example.com', '_blank');
-                        });
-
                         container.appendChild(img);
-                        return; // salimos: no inicializamos Three.js
+
+                        const downloadMsg = document.createElement('div');
+                        downloadMsg.style.textAlign = "center";
+                        downloadMsg.style.marginTop = "15px";
+                        downloadMsg.innerHTML = `
+        <div style="margin-bottom: 1px; text-align: center;">
+            <p style="font-size: 1.18em; color: #10403B; font-weight: bold; margin-bottom: 8px; text-align:center;">
+                ¡Descarga la aplicación móvil aquí!
+            </p>
+            <br>
+        </div>
+        <a href="/apk/NatureView.apk" download
+           style="display:inline-block; padding:12px 28px; background:#10403B; color:#fff; border-radius:10px; text-decoration:none; font-weight:bold; font-size:1.08em; box-shadow:0 2px 8px rgba(16,64,59,0.12); transition:background 0.2s;">
+           Descargar APK
+        </a>
+        `;
+                        container.appendChild(downloadMsg);
+
+                        return;
                     }
 
                     // --- Para escenas con modelos: creamos nav + Three.js ---
